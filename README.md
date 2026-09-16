@@ -12,6 +12,7 @@ To develop an anomaly detection model that identifies securities exhibiting abno
 We'll convert the Jupyter Notebook used for experimentation into python scripts so we can automate the whole process from ingestion to dashboard using Apache Airflow.
 
 ## Architecture
+```
 NSE/
 │
 ├── data/
@@ -30,3 +31,4 @@ NSE/
 │
 ├── pipeline.py
 └── requirements.txt
+```
