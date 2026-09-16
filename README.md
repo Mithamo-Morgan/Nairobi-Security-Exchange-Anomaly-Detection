@@ -16,19 +16,37 @@ We'll convert the Jupyter Notebook used for experimentation into python scripts 
 NSE/
 │
 ├── data/
+│   ├── training/
+│   └── inference/
+│
+├── artifacts/
+│   ├── models/
+│   ├── preprocessing/
+│   ├── thresholds/
+│   └── metadata/
+│
+├── results/
+│   ├── anomalies/
+│   ├── dashboard/
+│   ├── evaluation/
+│   └── logs/
 │
 ├── src/
 │   ├── data_loader.py
 │   ├── feature_engineering.py
-│   ├── model_preprocessing.py
-│   ├── anomaly_model.py
+│   ├── preprocessing.py
+│   ├── model.py
+│   ├── inference.py
+│   ├── explanation_engine.py
+│   ├── dashboard.py
 │   ├── evaluation.py
-│   ├── explanations.py
-│   ├── dashboard_data.py
+│   ├── persistence.py
 │   └── utils.py
 │
-├── outputs/
+├── scripts/
+│   ├── train.py
+│   └── predict.py
 │
-├── pipeline.py
-└── requirements.txt
+├── requirements.txt
+└── README.md
 ```
