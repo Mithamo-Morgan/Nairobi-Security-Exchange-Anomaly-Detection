@@ -7,3 +7,26 @@ This notebook develops an intelligent anomaly detection model using historical t
 
 ## Objective
 To develop an anomaly detection model that identifies securities exhibiting abnormal trading behaviour using historical daily trading data from the Nairobi Securities Exchange (NSE).
+
+## Automation
+We'll convert the Jupyter Notebook used for experimentation into python scripts so we can automate the whole process from ingestion to dashboard using Apache Airflow.
+
+## Architecture
+NSE/
+│
+├── data/
+│
+├── src/
+│   ├── data_loader.py
+│   ├── feature_engineering.py
+│   ├── model_preprocessing.py
+│   ├── anomaly_model.py
+│   ├── evaluation.py
+│   ├── explanations.py
+│   ├── dashboard_data.py
+│   └── utils.py
+│
+├── outputs/
+│
+├── pipeline.py
+└── requirements.txt
