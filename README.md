@@ -27,9 +27,9 @@ NSE/
 │
 ├── results/
 │   ├── anomalies/
-│   ├── dashboard/
-│   ├── evaluation/
-│   └── logs/
+│   
+│   
+│   
 │
 ├── src/
 │   ├── data_loader.py
@@ -38,7 +38,6 @@ NSE/
 │   ├── model.py
 │   ├── inference.py
 │   ├── explanation_engine.py
-│   ├── dashboard.py
 │   ├── evaluation.py
 │   ├── persistence.py
 │   └── utils.py
