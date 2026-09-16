@@ -3,6 +3,7 @@ from src.preprocessing import preprocess
 from src.feature_engineering import create_features
 
 from src.model import (prepare_training_data, train_model)
+from src.persistence import (save_model, save_preprocessing_artifacts, save_metadata)
 
 
 def main():
@@ -29,13 +30,21 @@ def main():
         numeric_features
     ) = prepare_training_data(data)
 
-    print("Training matrix:", X.shape)
-
     # 5
     model = train_model(X)
 
-    print(feature_columns)
+    save_model(model)
 
+    save_preprocessing_artifacts(scaler, feature_columns, numeric_features)
+
+    save_metadata(
+        {
+            "training_rows": len(X),
+            "features": len(feature_columns),
+            "model": "IsolationForest",
+            "contamination": 0.01
+        }
+    )
 
 if __name__ == "__main__":
     main()
