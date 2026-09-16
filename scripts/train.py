@@ -1,33 +1,40 @@
-"""
-Training pipeline entry point.
-"""
-
-from src.ingest import load_training_data, get_dataset_summary
-
+from src.ingest import load_training_data
+from src.preprocessing import preprocess
+from src.feature_engineering import create_features
 
 
 def main():
 
-    # Location of historical NSE data
     training_file = (
         "data/training/nse_historical_data.csv"
     )
 
-    # Load training dataset
-    data = load_training_data(
-        training_file
+
+    # 1. Load raw data
+    data = load_training_data(training_file)
+
+    print(
+        "After ingestion:",
+        data.shape
     )
 
 
-    # Display dataset information
-    summary = get_dataset_summary(data)
+    # 2. Clean and prepare data
+    data = preprocess(data)
 
-    print("\nTraining Dataset Loaded Successfully")
-    print("-----------------------------------")
+    print(
+        "After preprocessing:",
+        data.shape
+    )
 
-    for key, value in summary.items():
-        print(f"{key}: {value}")
 
+    # 3. Create anomaly features
+    data = create_features(data)
+
+    print(
+        "After feature engineering:",
+        data.shape
+    )
 
 
 if __name__ == "__main__":
