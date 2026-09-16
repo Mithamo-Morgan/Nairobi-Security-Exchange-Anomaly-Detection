@@ -40,7 +40,7 @@ def create_features(data: pd.DataFrame) -> pd.DataFrame:
     data["price_return"] = (
         (data["vwap"] - data["previous_price"])
         /
-        data["previous_price"]
+        data["previous_price"].replace(0, float("nan"))
     )
 
 
@@ -48,7 +48,7 @@ def create_features(data: pd.DataFrame) -> pd.DataFrame:
     data["intraday_range"] = (
         (data["high"] - data["low"])
         /
-        data["previous_price"]
+        data["previous_price"].replace(0, float("nan"))
     )
 
 
@@ -56,7 +56,7 @@ def create_features(data: pd.DataFrame) -> pd.DataFrame:
     data["distance_to_52wk_high"] = (
         (data["52wk_high"] - data["vwap"])
         /
-        data["52wk_high"]
+        data["52wk_high"].replace(0, float("nan"))
     )
 
 
@@ -64,7 +64,7 @@ def create_features(data: pd.DataFrame) -> pd.DataFrame:
     data["distance_to_52wk_low"] = (
         (data["vwap"] - data["52wk_low"])
         /
-        data["52wk_low"]
+        data["52wk_low"].replace(0, float("nan"))
     )
 
 
@@ -76,7 +76,7 @@ def create_features(data: pd.DataFrame) -> pd.DataFrame:
     data["turnover_ratio"] = (
         data["volume"]
         /
-        data["total_no_of_shares_issued"]
+        data["total_no_of_shares_issued"].replace(0, float("nan"))
     )
 
 
@@ -100,7 +100,7 @@ def create_features(data: pd.DataFrame) -> pd.DataFrame:
     data["relative_volume"] = (
         data["volume"]
         /
-        previous_volume_avg
+        previous_volume_avg.replace(0, float("nan"))
     )
 
 
@@ -119,7 +119,7 @@ def create_features(data: pd.DataFrame) -> pd.DataFrame:
     data["bid_discount"] = (
         (data["vwap"] - data["bid"])
         /
-        data["vwap"]
+        data["vwap"].replace(0, float("nan"))
     )
 
 
@@ -127,7 +127,7 @@ def create_features(data: pd.DataFrame) -> pd.DataFrame:
     data["ask_premium"] = (
         (data["ask"] - data["vwap"])
         /
-        data["vwap"]
+        data["vwap"].replace(0, float("nan"))
     )
 
 
@@ -135,7 +135,13 @@ def create_features(data: pd.DataFrame) -> pd.DataFrame:
     data["relative_spread"] = (
         (data["ask"] - data["bid"])
         /
-        data["vwap"]
+        data["vwap"].replace(0, float("nan"))
+    )
+
+    # Replace any remaining infinite values
+    data = data.replace(
+        [float("inf"), float("-inf")],
+        pd.NA
     )
 
 
