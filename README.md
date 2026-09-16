@@ -26,11 +26,8 @@ NSE/
 │   └── metadata/
 │
 ├── results/
-│   ├── anomalies/
-│   
-│   
-│   
-│
+│  ├── anomalies/
+|
 ├── src/
 │   ├── data_loader.py
 │   ├── feature_engineering.py
