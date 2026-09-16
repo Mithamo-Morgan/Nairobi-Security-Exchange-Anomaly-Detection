@@ -3,7 +3,8 @@ from src.preprocessing import preprocess
 from src.feature_engineering import create_features
 
 from src.model import (prepare_training_data, train_model)
-from src.persistence import (save_model, save_preprocessing_artifacts, save_metadata)
+from src.explanation_engine import (calculate_thresholds)
+from src.persistence import (save_model, save_preprocessing_artifacts, save_thresholds, save_metadata)
 
 
 def main():
@@ -21,6 +22,9 @@ def main():
     # 3
     data = create_features(data)
 
+    # Calculate explanation thresholds
+    thresholds = calculate_thresholds(data)
+
     # 4
     (
         X,
@@ -33,9 +37,12 @@ def main():
     # 5
     model = train_model(X)
 
+    # save artifacts
     save_model(model)
 
     save_preprocessing_artifacts(scaler, feature_columns, numeric_features)
+
+    save_thresholds(thresholds)
 
     save_metadata(
         {
