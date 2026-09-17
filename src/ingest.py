@@ -78,6 +78,69 @@ def load_training_data(file_path: str) -> pd.DataFrame:
 
     return data
 
+def load_inference_data(file_path: str) -> pd.DataFrame:
+    """
+    Load daily NSE data used for anomaly detection.
+
+    Parameters
+    ----------
+    file_path : str
+        Path to inference CSV file.
+
+    Returns
+    -------
+    pd.DataFrame
+        Cleaned and validated inference dataframe.
+    """
+
+    file_path = Path(file_path)
+
+    if not file_path.exists():
+        raise FileNotFoundError(
+            f"Inference dataset not found: {file_path}"
+        )
+
+
+    # Load raw CSV
+    data = pd.read_csv(file_path)
+
+
+    # Standardize column names
+    data = clean_column_names(data)
+
+
+    # Validate required columns
+    validate_schema(data)
+
+
+    # Convert date column
+    data["date"] = pd.to_datetime(
+        data["date"],
+        errors="coerce"
+    )
+
+
+    # Check invalid dates
+    invalid_dates = data["date"].isna().sum()
+
+    if invalid_dates > 0:
+        raise ValueError(
+            f"{invalid_dates} invalid date values found."
+        )
+
+
+    # Inference should represent one trading day
+    unique_dates = data["date"].nunique()
+
+    if unique_dates != 1:
+
+        raise ValueError(
+            f"Inference data should contain one trading day. "
+            f"Found {unique_dates} dates."
+        )
+
+
+    return data
 
 
 def clean_column_names(data: pd.DataFrame) -> pd.DataFrame:
